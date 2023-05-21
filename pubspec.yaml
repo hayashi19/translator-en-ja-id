@@ -1,0 +1,22 @@
+name: translator_en_jp_id
+description: A new Flutter project.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.0.1 <4.0.0'
+
+dependencies:
+  fl_mlkit_translate_text: ^1.1.0
+  flutter:
+    sdk: flutter
+  get: ^4.6.5
+  learning_translate: ^0.0.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
