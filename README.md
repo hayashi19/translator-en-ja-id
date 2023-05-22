@@ -1,3 +1,9 @@
 # Translator Demo App
 
-preview app download [here](https://drive.google.com/file/d/1Fzg8Yp7VkV7g3B0ezvHw3FcwirwkIGEA/view?usp=share_link)
+Id
+
+Aplikasi ini merupakan aplikasi demo untuk project akhir semester kampus matakuliah interaksi manusia dan Aplikasi yang dibuat adalah aplikasi translasi bahasa (Id, En, Ja). Demo Aplikasi ini dikembangkan dengan Flutter. External library yang digunakan `get: ^4.6.5` dan `learning_translate: ^0.0.4`.
+
+En
+
+This application is a demo application for a final semester campus project for human interaction courses and the application made is a language translation application (Id, En, Ja). Demo This app was developed with Flutter. The external libraries used are `get: ^4.6.5` and `learning_translate: ^0.0.4`.
