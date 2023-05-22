@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:translator_en_jp_id/drawer/drawer_page.dart';
 
 import 'translator_controller.dart';
 
@@ -8,16 +9,108 @@ class TranslationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: ListView(
-        children: const <Widget>[
-          TranslationTextfield(),
-          TranslationToolBar(),
-          TranslatedTextfield(),
-          // Test()
-        ],
+    return Scaffold(
+      drawer: const DrawerPage(),
+      appBar: AppBar(title: const LangSwitch()),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ListView(
+            children: const <Widget>[
+              TranslationTextfield(),
+              TranslationToolBar(),
+              TranslatedTextfield(),
+              // Test()
+            ],
+          ),
+        ),
       ),
+    );
+  }
+}
+
+class LangSwitch extends StatelessWidget {
+  const LangSwitch({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final TranslatorController translatorController = Get.find();
+
+    return Obx(
+      () {
+        if (translatorController.tFromList.isEmpty ||
+            translatorController.tToList.isEmpty) {
+          return const Text("Download the models");
+        } else {
+          return Row(
+            children: <Widget>[
+              Expanded(
+                child: Obx(
+                  () => DropdownButton<String>(
+                    isExpanded: true,
+                    isDense: true,
+                    value: translatorController.selectedFrom.value,
+                    items: translatorController.tFromList.map((value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: value == "ja"
+                            ? const Text("Japanese")
+                            : value == "id"
+                                ? const Text("Indonesia")
+                                : const Text("English"),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      if (value == translatorController.selectedTo.value) {
+                        String temp = translatorController.selectedFrom.value;
+                        translatorController.selectedFrom.value =
+                            translatorController.selectedTo.value;
+                        translatorController.selectedTo.value = temp;
+                      } else {
+                        translatorController.selectedFrom.value = value!;
+                      }
+                      translatorController.setTranslator();
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(width: 16),
+              const Icon(Icons.arrow_right_alt_rounded),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Obx(
+                  () => DropdownButton<String>(
+                    isExpanded: true,
+                    isDense: true,
+                    value: translatorController.selectedTo.value,
+                    items: translatorController.tToList.map((value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: value == "ja"
+                            ? const Text("Japanese")
+                            : value == "id"
+                                ? const Text("Indonesia")
+                                : const Text("English"),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      if (value == translatorController.selectedFrom.value) {
+                        String temp = translatorController.selectedTo.value;
+                        translatorController.selectedTo.value =
+                            translatorController.selectedFrom.value;
+                        translatorController.selectedFrom.value = temp;
+                      } else {
+                        translatorController.selectedTo.value = value!;
+                      }
+                      translatorController.setTranslator();
+                    },
+                  ),
+                ),
+              )
+            ],
+          );
+        }
+      },
     );
   }
 }
@@ -98,9 +191,11 @@ class Test extends StatelessWidget {
     final TranslatorController translatorController = Get.find();
     return ElevatedButton(
       onPressed: () {
-        translatorController.downloadModels();
+        // translatorController.test();
       },
-      child: const Text("Hello"),
+      child: Text(
+        "${translatorController.translator.from} -> ${translatorController.translator.to}",
+      ),
     );
   }
 }

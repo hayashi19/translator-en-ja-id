@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:translator_en_jp_id/main_controller.dart';
 
-import 'drawer/drawer_page.dart';
 import 'translator/translator_controller.dart';
 import 'translator/translator_page.dart';
 
@@ -19,12 +18,6 @@ class MainApp extends GetView<MainController> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: ThemeData.dark(),
-      home: Scaffold(
-        drawer: const DrawerPage(),
-        appBar: AppBar(title: const Text("Indonesia -> English")),
-        body: const SafeArea(child: TranslationPage()),
-      ),
-    );
+        theme: ThemeData.dark(), home: const TranslationPage());
   }
 }
